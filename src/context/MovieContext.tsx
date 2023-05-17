@@ -26,23 +26,23 @@ export function MovieProvider({ children }: MovieProviderProps): JSX.Element {
   }, []);
 
   useEffect(() => {
-    async function loadMovies() {
+    function loadMovies() {
       api
       .get<MovieProps[]>(`movies/?Genre_id=${selectedGenreId}`)
       .then((response) => {
         setMovies(response.data);
       });
     }
-    async function loadGenres() {
+    function loadGenres() {
       api
       .get<GenreResponseProps>(`genres/${selectedGenreId}`)
       .then((response) => {
         setSelectedGenre(response.data);
       });
     }
-    
     loadMovies()
     loadGenres()
+
   }, [selectedGenreId]);
 
 
