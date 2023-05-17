@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useCallback } from "react";
 import {
   GenreResponseProps,
   MovieContextData,
@@ -26,22 +26,29 @@ export function MovieProvider({ children }: MovieProviderProps): JSX.Element {
   }, []);
 
   useEffect(() => {
-    api
+    async function loadMovies() {
+      api
       .get<MovieProps[]>(`movies/?Genre_id=${selectedGenreId}`)
       .then((response) => {
         setMovies(response.data);
       });
-
-    api
+    }
+    async function loadGenres() {
+      api
       .get<GenreResponseProps>(`genres/${selectedGenreId}`)
       .then((response) => {
         setSelectedGenre(response.data);
       });
+    }
+    
+    loadMovies()
+    loadGenres()
   }, [selectedGenreId]);
 
-  function handleClickButton(id: number) {
+
+  const handleClickButton = useCallback((id: number)  => {
     setSelectedGenreId(id);
-  }
+  },[])
 
   return (
     <MovieContext.Provider

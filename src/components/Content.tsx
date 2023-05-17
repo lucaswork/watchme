@@ -1,4 +1,4 @@
-import { MovieCard } from '../components/MovieCard';
+import {MovieCardItem}  from '../components/MovieCard';
 import { useMovie } from '../hooks/useMovie';
 import '../styles/content.scss';
 export function Content() {
@@ -12,7 +12,7 @@ export function Content() {
       <main>
         <div className="movies-list">
           {movies.map(movie => (
-            <MovieCard key ={movie.imdbID} title={movie.Title} poster={movie.Poster} runtime={movie.Runtime} rating={movie.Ratings[0].Value} />
+            <MovieCardItem key ={movie.imdbID} title={movie.Title} poster={movie.Poster} runtime={movie.Runtime} rating={movie.Ratings[0].Value} />
           ))}
         </div>
       </main>
